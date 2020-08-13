@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arun-ing-auth
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web
+      nsname: default
+  template:
+    metadata:
+      labels:
+        app: web
+        nsname: default
+    spec:
+      containers:
+      - name: c1
+        image: arunvel1988/c1
+        ports:
+        - containerPort: 8000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: arun-svc
+spec: 
+  selector:
+    app: web
+    nsname: default
+  ports:
+    - port: 8000
+      name: http
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:     
+  name: arun-ingress
+  namespace: default
+spec:
+  rules:
+  - host: app.info
+    http:
+      paths:
+      - backend:
+          serviceName: arun-svc
+          servicePort: 8000
+        path: /
+ 
+    
+
