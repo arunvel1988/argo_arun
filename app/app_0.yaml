@@ -41,7 +41,7 @@ metadata:
   namespace: default
 spec:
   rules:
-  - host: app.info
+  - host: app2.info
     http:
       paths:
       - backend:
